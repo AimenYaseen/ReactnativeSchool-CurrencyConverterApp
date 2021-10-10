@@ -9,14 +9,14 @@ import {
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Entypo } from "@expo/vector-icons";
-import { format } from "date-fns";
-
-import colors from "../constants/colors";
 import { Button } from "../components/Button";
 import { KeyboardSpacer } from "../components/KeyboardSpacer";
 import { ConversionInput } from "../components/ConversionInput";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Entypo } from "@expo/vector-icons";
+import { format } from "date-fns";
+
+import colors from "../constants/colors";
 
 const screen = Dimensions.get("window");
 
@@ -55,16 +55,20 @@ const Home = ({ navigation }) => {
           </View>
           <Text style={styles.headerText}>Currency Converter</Text>
           <ConversionInput
-            text="USD"
+            text={baseCurrency}
             value="123"
-            onSubmit={() => alert("Todo!")}
+            onSubmit={() =>
+              navigation.navigate("CurrencyList", { title: "Base Currency" })
+            }
             onChangeText={(text) => console.log("text", text)}
             keyboardType="numeric"
           />
           <ConversionInput
-            text="GBP"
+            text={quoteCurrency}
             value="123"
-            onSubmit={() => alert("Todo!")}
+            onSubmit={() =>
+              navigation.navigate("CurrencyList", { title: "Quote Currency" })
+            }
             keyboardType="numeric"
             editable={false}
           />

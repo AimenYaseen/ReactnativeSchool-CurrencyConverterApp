@@ -8,16 +8,19 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import { ConversionInput } from "../components/ConversionInput";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Entypo } from "@expo/vector-icons";
 import { format } from "date-fns";
 
 import colors from "../constants/colors";
 import { Button } from "../components/Button";
 import { KeyboardSpacer } from "../components/KeyboardSpacer";
+import { ConversionInput } from "../components/ConversionInput";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const screen = Dimensions.get("window");
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const baseCurrency = "USD";
   const quoteCurrency = "BGP";
   const conversionRate = 0.7346;
@@ -32,6 +35,11 @@ const Home = () => {
         scrollEnabled={scrollable}
         showsVerticalScrollIndicator={false}
       >
+        <SafeAreaView style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.navigate("Options")}>
+            <Entypo name="cog" size={32} color={colors.white} />
+          </TouchableOpacity>
+        </SafeAreaView>
         <View style={styles.content}>
           <View style={styles.logo}>
             <Image
@@ -110,6 +118,10 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 13,
     textAlign: "center",
+  },
+  header: {
+    alignItems: "flex-end",
+    marginHorizontal: 10,
   },
 });
 

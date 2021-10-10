@@ -1,5 +1,11 @@
 import React from "react";
-import { ScrollView, StyleSheet, Linking, Alert } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Linking,
+  Alert,
+  StatusBar,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { RowItem, RowSeparator } from "../components/RowItem";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -17,16 +17,19 @@ import { Entypo } from "@expo/vector-icons";
 import { format } from "date-fns";
 
 import colors from "../constants/colors";
+import { ConversionContext } from "../context/ConversionContext";
 
 const screen = Dimensions.get("window");
 
 const Home = ({ navigation }) => {
-  const baseCurrency = "USD";
-  const quoteCurrency = "BGP";
+  const [scrollable, setScrollable] = useState(false);
+  const [value, setValue] = useState("100");
+
+  const { baseCurrency, quoteCurrency, swapCurrencies } =
+    useContext(ConversionContext);
+
   const conversionRate = 0.7346;
   const date = new Date();
-
-  const [scrollable, setScrollable] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -56,18 +59,26 @@ const Home = ({ navigation }) => {
           <Text style={styles.headerText}>Currency Converter</Text>
           <ConversionInput
             text={baseCurrency}
-            value="123"
+            value={value}
             onSubmit={() =>
-              navigation.navigate("CurrencyList", { title: "Base Currency" })
+              navigation.navigate("CurrencyList", {
+                title: "Base Currency",
+                isBaseCurrency: true,
+              })
             }
-            onChangeText={(text) => console.log("text", text)}
+            onChangeText={(text) => setValue(text)}
             keyboardType="numeric"
           />
           <ConversionInput
             text={quoteCurrency}
-            value="123"
+            value={
+              value && `${(parseFloat(value) * conversionRate).toFixed(2)}`
+            }
             onSubmit={() =>
-              navigation.navigate("CurrencyList", { title: "Quote Currency" })
+              navigation.navigate("CurrencyList", {
+                title: "Quote Currency",
+                isBaseCurrency: false,
+              })
             }
             keyboardType="numeric"
             editable={false}
@@ -79,7 +90,7 @@ const Home = ({ navigation }) => {
             "MMMM do, yyyy"
           )}`}</Text>
 
-          <Button text="Reverse Currencies" onPress={() => alert("TODO!")} />
+          <Button text="Reverse Currencies" onPress={() => swapCurrencies()} />
           <KeyboardSpacer
             Toggle={(isKeyboardVisible) => setScrollable(isKeyboardVisible)}
           />

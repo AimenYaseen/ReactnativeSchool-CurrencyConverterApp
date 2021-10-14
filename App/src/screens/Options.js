@@ -7,8 +7,10 @@ import {
   StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Entypo } from "@expo/vector-icons";
 
 import { RowItem, RowSeparator } from "../components/RowItem";
+import colors from "../constants/colors";
 
 const openLink = (url) => {
   return Linking.openURL(url).catch((err) =>
@@ -22,13 +24,15 @@ export default () => {
       <ScrollView>
         <RowItem
           text="Themes"
-          iconName="chevron-right"
+          rightIcon={
+            <Entypo name="chevron-right" size={20} color={colors.icon} />
+          }
           onSubmit={() => alert("Todo!")}
         />
         <RowSeparator />
         <RowItem
           text="React Native Basics"
-          iconName="export"
+          rightIcon={<Entypo name="export" size={20} color={colors.icon} />}
           onSubmit={() =>
             openLink(
               "https://learn.reactnativeschool.com/p/react-native-basics-build-a-currency-converter"
@@ -38,7 +42,7 @@ export default () => {
         <RowSeparator />
         <RowItem
           text="React Native By Examples"
-          iconName="export"
+          rightIcon={<Entypo name="export" size={20} color={colors.icon} />}
           onSubmit={() => openLink("https://reactnativebyexample.com")}
         />
       </ScrollView>

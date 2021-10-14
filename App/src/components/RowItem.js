@@ -1,14 +1,13 @@
 import React from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
-import { Entypo } from "@expo/vector-icons";
 
 import colors from "../constants/colors";
 
-export const RowItem = ({ text, iconName, onSubmit }) => {
+export const RowItem = ({ text, rightIcon, onSubmit }) => {
   return (
     <TouchableOpacity style={styles.row} onPress={onSubmit}>
       <Text style={styles.text}>{text}</Text>
-      <Entypo name={iconName} size={20} color={colors.icon} />
+      {rightIcon}
     </TouchableOpacity>
   );
 };
